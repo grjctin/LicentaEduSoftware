@@ -21,7 +21,6 @@ app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("ht
 app.UseAuthentication(); // valideaza cheia
 app.UseAuthorization(); // verifica daca ai dreptul de a te loga
 
-
 app.MapControllers();
 
 
