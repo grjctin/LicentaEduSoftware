@@ -1,0 +1,8 @@
+<div>
+  <div *ngIf="categories">
+    <p *ngFor="let category of categories">class = {{category.classNumber}}, name = {{category.name}}</p>
+  </div>
+  <p *ngIf="!categories">No categories to show</p>
+  <app-questions [categoryId]="categoryId" [difficulty]="difficulty"></app-questions>
+</div>
+

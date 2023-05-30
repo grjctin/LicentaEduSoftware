@@ -1,0 +1,6 @@
+<div>
+    <div *ngIf="questions">
+      <p *ngFor="let question of questions">Text = {{question.text}}, difficulty = {{question.difficulty}}, categoryId = {{question.categoryId}}</p>
+    </div>
+    <p *ngIf="!questions">No questions to show</p>
+  </div>

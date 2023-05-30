@@ -26,6 +26,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 import { MemberMessagesComponent } from './_members/member-messages/member-messages.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { MemberMessagesComponent } from './_members/member-messages/member-messa
     PhotoEditorComponent,
     TextInputComponent,
     DatePickerComponent,
-    MemberMessagesComponent
+    MemberMessagesComponent,
+    CategoriesComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserAnimationsModule,

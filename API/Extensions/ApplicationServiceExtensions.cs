@@ -16,7 +16,7 @@ namespace API.Extensions
             });
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
-            // ca sa poata fii injectat in usercontroller
+            // pentru a putea injecta in Controllere
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
@@ -24,6 +24,8 @@ namespace API.Extensions
             services.AddScoped<LogUserActivity>();
             services.AddScoped<ILikesRepository,LikesRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
 
             return services;
         }
