@@ -28,6 +28,9 @@ import { DatePickerComponent } from './_forms/date-picker/date-picker.component'
 import { MemberMessagesComponent } from './_members/member-messages/member-messages.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { ClassesComponent } from './classes/classes.component';
+import { StudentsComponent } from './students/students.component';
+import { StudentDetailsComponent } from './students/student-details/student-details.component';
 
 
 @NgModule({
@@ -50,7 +53,10 @@ import { QuestionsComponent } from './questions/questions.component';
     DatePickerComponent,
     MemberMessagesComponent,
     CategoriesComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    ClassesComponent,
+    StudentsComponent,
+    StudentDetailsComponent
   ],
   imports: [
     BrowserAnimationsModule,

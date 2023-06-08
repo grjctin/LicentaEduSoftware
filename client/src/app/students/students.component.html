@@ -1,0 +1,66 @@
+<div class="ms-4 mt-2" *ngIf="students">
+  <div *ngIf="mode === 'details'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Class</th>
+          <th>Cnp</th>
+          <th>Email</th>
+          <th>Phone number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of students">
+          <td>{{s.id}}</td>
+          <td>{{s.firstName}}</td>
+          <td>{{s.lastName}}</td>
+          <td>{{schoolClass?.className}}</td>
+          <td>{{s.cnp}}</td>
+          <td>{{s.email}}</td>
+          <td>{{s.phoneNumber}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="mode === 'grades'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Grades</th>
+          <th>Category 1</th>
+          <th>Category 2</th>
+          <th>Category 3</th>
+          <th>Category 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of students">
+          <td>{{s.id}}</td>
+          <td>{{s.firstName}}</td>
+          <td>{{s.lastName}}</td>
+          <td></td>
+          <td>{{schoolClass?.className}}</td>
+          <td>{{s.cnp}}</td>
+          <td>{{s.email}}</td>
+          <td>{{s.phoneNumber}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!mode && students">
+  <div *ngFor="let s of students">
+    <p>Id = {{s.id}}, Name = {{s.firstName}} {{s.lastName}}</p>
+  </div>
+</div>
+<p *ngIf="!students">No students to show</p>
+
+
+

@@ -11,7 +11,6 @@ namespace API.Controllers
         public CategoriesController(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
-
         }
 
         [HttpGet]
@@ -29,7 +28,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCategory(CreateCategoryDto categoryDto)
         {
-            Console.WriteLine(categoryDto.ClassNumber + " " + categoryDto.CategoryName);
+            //Console.WriteLine(categoryDto.ClassNumber + " " + categoryDto.CategoryName);
             var category = new Category
             {
                 ClassNumber = categoryDto.ClassNumber,
@@ -41,8 +40,6 @@ namespace API.Controllers
                 return Ok("Category added successfully");
             return BadRequest("Failed to add category");
         }
-
-
 
         [HttpGet("name={name}")]
         public async Task<ActionResult<Category>> GetCategoryByName(string name)

@@ -26,6 +26,8 @@ namespace API.Extensions
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<ISchoolClassRepository,SchoolClassRepository>();
+            services.AddScoped<IStudentRepository,StudentRepository>();
 
             return services;
         }

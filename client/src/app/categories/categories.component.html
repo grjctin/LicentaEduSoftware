@@ -1,8 +1,41 @@
 <div>
-  <div *ngIf="categories">
+  <div class="dropdown" dropdown>
+    <a class="dropdown-toggle text-decoration-none" dropdownToggle>Select a class number for categories</a>
+    <div class="dropdown-menu mt-3" *dropdownMenu>
+      <a class="dropdown-item" (click)="loadCategories()">All</a>
+      <a class="dropdown-item" *ngFor="let nr of classNumbers"
+        (click)="loadCategoriesByClass(nr)">{{nr}}</a>      
+    </div>
+  </div>
+
+  <p class="mt-2" *ngIf="selectedClass">Categories for grade {{selectedClass}}:</p>
+  <p class="mt-2" *ngIf="!selectedClass && categories.length > 0">All Categories:</p>
+
+  <div class="ms-4 mt-2" *ngIf="categories">
     <p *ngFor="let category of categories">class = {{category.classNumber}}, name = {{category.name}}</p>
   </div>
-  <p *ngIf="!categories">No categories to show</p>
-  <app-questions [categoryId]="categoryId" [difficulty]="difficulty"></app-questions>
+  <p *ngIf="!categories">No categories to show</p> 
+</div>
+
+<button *ngIf="!addCategoryMode" class="btn btn-primary" (click)="showForm()">Add new category</button>
+
+<div *ngIf="addCategoryMode" class="w-25">
+  <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+    <div class="form-group">
+      <label for="classNumber">Class Number</label>
+      <input type="text" id="classNumber" formControlName="classNumber" class="form-control" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" required>
+    </div>
+  
+    <div class="mt-2">
+      <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-primary">Add Category</button>
+      <button type="button" class="btn btn-default" (click)="cancelAdd()">Cancel</button>
+    </div>
+  </form>
+  
 </div>
 

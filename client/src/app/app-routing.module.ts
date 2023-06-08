@@ -13,6 +13,9 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { CategoriesComponent } from './categories/categories.component';
+import { ClassesComponent } from './classes/classes.component';
+import { StudentsComponent } from './students/students.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,7 +29,10 @@ const routes: Routes = [
       {path: 'lists', component: ListsComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
-      {path: 'categories', component: CategoriesComponent}
+      {path: 'categories', component: CategoriesComponent},
+      {path: 'classes', component: ClassesComponent},
+      {path: 'students', component: StudentsComponent},
+      {path: 'questions', component: QuestionsComponent}
     ]
   }, 
   {path: 'errors', component: TestErrorComponent},

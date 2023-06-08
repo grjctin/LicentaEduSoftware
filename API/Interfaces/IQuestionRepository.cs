@@ -13,6 +13,7 @@ namespace API.Interfaces
         void AddQuestion(Question question);
         void DeleteQuestion(Question question);
         Task<List<Question>> GetQuestionsByClassNumber(int classNumber);
+        Task<PagedList<Question>> GetPaginatedQuestions(QuestionsParams questionsParams);
         Task<bool> SaveAllAsync();
     }
 }

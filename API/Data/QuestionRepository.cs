@@ -1,6 +1,7 @@
 using API.Entities;
 using API.Helpers;
 using API.Interfaces;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -37,8 +38,8 @@ namespace API.Data
 
         public async Task<List<Question>> GetQuestionsByCategoryDifficulty(QuestionParams questionParams)
         {
-            return await _context.Questions.Where(q => 
-                q.CategoryId == questionParams.CategoryId && 
+            return await _context.Questions.Where(q =>
+                q.CategoryId == questionParams.CategoryId &&
                 q.difficulty == questionParams.Difficulty)
                 .ToListAsync();
         }
@@ -50,13 +51,39 @@ namespace API.Data
 
         public async Task<List<Question>> GetQuestionsByClassNumber(int classNumber)
         {
-            var classNumberCategories = _context.Categories
+            var classNumberCategories = await _context.Categories
                 .Where(cat => cat.ClassNumber == classNumber)
                 .Select(cat => cat.Id)
-                .ToList();
+                .ToListAsync();
             return await _context.Questions
                 .Where(q => classNumberCategories.Contains(q.CategoryId))
                 .ToListAsync();
+        }
+
+
+        public async Task<PagedList<Question>> GetPaginatedQuestions(QuestionsParams questionsParams)
+        {
+            Console.WriteLine("Repository paginated questions questionsParams.difficulty = " + questionsParams.Difficulty);
+            var query = _context.Questions.AsQueryable();
+
+            if (questionsParams.Difficulty != 4)
+            {
+                query = query.Where(question => question.CategoryId == questionsParams.CategoryId);
+                query = query.Where(q => q.difficulty == questionsParams.Difficulty);
+                query = query.Where(q => q.AnswerType == questionsParams.AnswerType);
+            }
+
+            query = questionsParams.OrderBy switch
+            {
+                "difDescending" => query.OrderByDescending(q => q.difficulty),
+                "difAscending" => query.OrderBy(q => q.difficulty),
+                _ => query.OrderBy(q => q.DateAdded)
+            };
+
+            return await PagedList<Question>.CreateAsync(
+                query.AsNoTracking(),
+                questionsParams.PageNumber,
+                questionsParams.PageSize);
         }
 
         public async Task<bool> SaveAllAsync()
