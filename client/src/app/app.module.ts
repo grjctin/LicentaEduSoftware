@@ -31,6 +31,7 @@ import { QuestionsComponent } from './questions/questions.component';
 import { ClassesComponent } from './classes/classes.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentDetailsComponent } from './students/student-details/student-details.component';
+import { AddGradeComponent } from './add-grade/add-grade.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { StudentDetailsComponent } from './students/student-details/student-deta
     QuestionsComponent,
     ClassesComponent,
     StudentsComponent,
-    StudentDetailsComponent
+    StudentDetailsComponent,
+    AddGradeComponent
   ],
   imports: [
     BrowserAnimationsModule,

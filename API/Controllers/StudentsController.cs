@@ -30,11 +30,20 @@ namespace API.Controllers
             return await _studentRepository.GetStudentById(id);
         }
 
-        [HttpGet("classId={classId}")]
-        public async Task<ActionResult<List<Student>>> GetStudentsByClassId(int classId)
+        [HttpGet("details/classId={classId}")]
+        public async Task<ActionResult<List<Student>>> GetStudentsDetailsByClassId(int classId)
         {
-            return await _studentRepository.GetStudentsByClassId(classId);
+            return await _studentRepository.GetStudentsDetailsByClassId(classId);
         }
+
+        [HttpGet("grades/classId={classId}")]
+        public async Task<ActionResult<List<StudentsGradesDto>>> GetStudentsGradesByClassId(int classId)
+        {
+            Console.WriteLine("ASFDGFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+            return await _studentRepository.GetStudentsGradesByClassId(classId);
+        }
+
+        [HttpGet("")]
 
         [HttpGet("get-student-by-name")]
         public async Task<ActionResult<Student>> GetStudentByName([FromQuery] string firstname, [FromQuery] string lastname)

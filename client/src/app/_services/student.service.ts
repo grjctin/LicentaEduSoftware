@@ -5,6 +5,7 @@ import { Student } from '../_models/student';
 import { SchoolClass } from '../_models/class';
 import { SchoolClassService } from './school-class.service';
 import { map } from 'rxjs';
+import { StudentsGrades } from '../_models/studentGrades';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,11 @@ export class StudentService {
     return this.http.get<Student[]>(this.baseUrl + 'students');
   }
 
-  getStudentsByClassId(id: number) {
-    return this.http.get<Student[]>(this.baseUrl + 'students/classId=' + id);
+  getStudentsDetailsByClassId(id: number) {
+    return this.http.get<Student[]>(this.baseUrl + 'students/details/classId=' + id);
+  }
+
+  getStudentGradesByClassId(id: number) {
+    return this.http.get<StudentsGrades[]>(this.baseUrl + 'students/grades/classId=' + id);
   }
 }

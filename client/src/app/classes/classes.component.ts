@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SchoolClassService } from '../_services/school-class.service';
 import { SchoolClass } from '../_models/class';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Student } from '../_models/student';
 
 @Component({
   selector: 'app-classes',
@@ -12,8 +14,9 @@ export class ClassesComponent implements OnInit {
   students: any[] = [];
   selectedClass: SchoolClass | undefined;
   viewMode: string = "details"; //details pt student details, grades pt student grades + category grades
+  
 
-  constructor(private classService: SchoolClassService) {}
+  constructor(private classService: SchoolClassService) { }
 
   ngOnInit(): void {
     //this.loadAllClasses();
@@ -32,13 +35,23 @@ export class ClassesComponent implements OnInit {
     })
   }
 
-  onClassSelection(schoolClass : SchoolClass) {
+  onClassSelection(schoolClass: SchoolClass) {
     console.log("onClassSelection     changing selected class");
-    this.selectedClass = schoolClass;    
+    this.selectedClass = schoolClass;
   }
 
   changeViewMode(viewMode: string) {
     this.viewMode = viewMode;
   }
+
+  addGrade() {
+    console.log("add grade");
+  }
+
+  receiveStudentsList(students: Student[]){
+    console.log("Receive Students parent component");
+    this.students = students;
+  }
+
 
 }

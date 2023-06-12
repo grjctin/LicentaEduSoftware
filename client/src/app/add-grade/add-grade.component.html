@@ -1,0 +1,29 @@
+<div *ngIf="mode != 'false' && students.length > 0" class="w-50">
+    <form [formGroup]="gradeForm" (ngSubmit)="addGrade()">
+      <div class="form-group">
+        <label for="studentId">Student </label>
+        <select name="studentId" id="studentId" class="form-select" formControlName="studentId" style="width: 200px;">
+          <option *ngFor="let s of students" [value]="s.id">{{ s.firstName }} {{s.lastName}}</option>
+        </select>
+      </div>
+
+      <div *ngIf="mode === 'addCategoryGrade'" class="form-group">
+        <label for="categoryId">Category </label>
+        <select name="categoryId" id="categoryId" class="form-select" formControlName="categoryId" style="width: 200px;">
+          <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="grade">Grade</label>
+        <input type="text" id="grade" formControlName="grade" class="form-control" required>
+      </div>
+    
+      <div class="mt-2">
+        <button type="submit"  [disabled]="gradeForm.invalid" class="btn btn-primary">Add Grade</button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="cancelAdd()">Cancel</button>
+      </div>
+    </form>    
+  </div>
+
+

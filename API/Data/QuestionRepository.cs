@@ -13,7 +13,6 @@ namespace API.Data
         public QuestionRepository(DataContext context)
         {
             _context = context;
-
         }
 
         public void AddQuestion(Question question)

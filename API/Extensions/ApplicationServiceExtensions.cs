@@ -22,12 +22,13 @@ namespace API.Extensions
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<LogUserActivity>();
-            services.AddScoped<ILikesRepository,LikesRepository>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
-            services.AddScoped<ISchoolClassRepository,SchoolClassRepository>();
-            services.AddScoped<IStudentRepository,StudentRepository>();
+            services.AddScoped<ISchoolClassRepository, SchoolClassRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IGradeRepository, GradeRepository>();
 
             return services;
         }

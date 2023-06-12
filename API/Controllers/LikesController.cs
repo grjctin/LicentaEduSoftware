@@ -38,7 +38,7 @@ namespace API.Controllers
             };
             sourceUser.LikedUsers.Add(userLike);
 
-            if(await _userRepository.SaveAllAsync()) return Ok();
+            if(await _userRepository.SaveAllAsync()) return Ok("asd");
             return BadRequest("Failed to like user");
         }
 

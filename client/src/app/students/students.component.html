@@ -33,22 +33,16 @@
           <th>First name</th>
           <th>Last name</th>
           <th>Grades</th>
-          <th>Category 1</th>
-          <th>Category 2</th>
-          <th>Category 3</th>
-          <th>Category 4</th>
+          <th *ngFor="let category of categories">{{category.name}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let s of students">
-          <td>{{s.id}}</td>
-          <td>{{s.firstName}}</td>
-          <td>{{s.lastName}}</td>
-          <td></td>
-          <td>{{schoolClass?.className}}</td>
-          <td>{{s.cnp}}</td>
-          <td>{{s.email}}</td>
-          <td>{{s.phoneNumber}}</td>
+        <tr *ngFor="let sGrades of studentsGrades">
+          <td>{{sGrades.id}}</td>
+          <td>{{sGrades.firstName}}</td>
+          <td>{{sGrades.lastName}}</td>
+          <td>{{sGrades.grades}}</td>
+          <td *ngFor="let c of categories">{{sGrades.categoryGrades[c.id]}}</td>
         </tr>
       </tbody>
     </table>
@@ -61,6 +55,12 @@
   </div>
 </div>
 <p *ngIf="!students">No students to show</p>
+
+<div *ngIf="mode === 'grades'" >
+  <button *ngIf="!showAddGradeForm" class="btn btn-primary me-2" (click)="toggleAddGradeMode('addGrade')"> Add Grade </button>
+  <button *ngIf="!showAddGradeForm" class="btn btn-primary" (click)="toggleAddGradeMode('addCategoryGrade')"> Add Category Grade </button>
+  <app-add-grade *ngIf="showAddGradeForm" (reloadStudentGrades)="gradeAdded()" (removeForm)="hideComponent()" [mode]="addGradeMode" [categories]="categories" [students]="students"></app-add-grade>
+</div>
 
 
 
