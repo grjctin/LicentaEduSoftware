@@ -1,4 +1,4 @@
-<div *ngIf="classes">
+<div *ngIf="classes.length > 0">
   <p>You currently teach {{classes.length}} classes</p>
 
   <!-- <div class="dropdown" dropdown>
@@ -17,9 +17,10 @@
         <button *ngFor="let schoolClass of classes" class="btn btn-primary"
           (click)="onClassSelection(schoolClass)">{{schoolClass.className}}</button>
       </div>
-      <div class="btn-group ms-2">
+      <div *ngIf="classes.length > 0" class="btn-group ms-2">
         <button class="btn btn-secondary" (click)="changeViewMode('details')">Student Details</button>
         <button class="btn btn-secondary" (click)="changeViewMode('grades')">Student Grades</button>
+        <button class="btn btn-secondary" (click)="changeViewMode('attendance')">Attendance</button>
       </div>
     </div>
   </div>

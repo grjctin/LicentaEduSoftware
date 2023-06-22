@@ -1,3 +1,4 @@
+using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -11,8 +12,10 @@ namespace API.Controllers
     {
         private readonly IQuestionRepository _questionRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public QuestionsController(IQuestionRepository questionRepository, ICategoryRepository categoryRepository)
+        private readonly IAnswerRepository _answerRepository;
+        public QuestionsController(IQuestionRepository questionRepository, ICategoryRepository categoryRepository, IAnswerRepository answerRepository)
         {
+            _answerRepository = answerRepository;
             _categoryRepository = categoryRepository;
             _questionRepository = questionRepository;
 
@@ -50,16 +53,22 @@ namespace API.Controllers
             return Ok(questions);
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult> AddQuestion(QuestionDto questionDto)
-        // {
-        //     //Cand adaug o intrebare, trebuie sa trimit si variantele de raspuns
-        //     //Va trebui creat un Dto care sa contina raspunsuri
-        //     return Ok("Not implemented yet");
-        // }
+        [HttpPost]
+        public async Task<ActionResult> AddQuestion(AddQuestionDTO addQuestion)
+        {
+            if (addQuestion.AnswerType == 1 && (addQuestion.Answer2 == null || addQuestion.Answer3 == null || addQuestion.Answer4 == null || addQuestion.CorrectAnswer == null))
+                return BadRequest("There must be 4 answers");
+
+            _questionRepository.AddQuestion(addQuestion);
+
+            if (await _questionRepository.SaveAllAsync())
+                return Ok("Question added successfully");
+
+            return BadRequest("Something unexpected went wrong");
+        }
 
         [HttpGet("paginated")]
-        public async Task<ActionResult<PagedList<Question>>> GetPaginatedQuestions([FromQuery] QuestionsParams questionsParams)
+        public async Task<ActionResult<QuestionsWithAnswersDTO>> GetPaginatedQuestions([FromQuery] QuestionsParams questionsParams)
         {
             Console.WriteLine("endpoint paginated" + ", orderBy=" + questionsParams.OrderBy + ", difficulty=" + questionsParams.Difficulty + "etc");
             var questions = await _questionRepository.GetPaginatedQuestions(questionsParams);
@@ -69,7 +78,45 @@ namespace API.Controllers
                 questions.TotalCount,
                 questions.TotalPages));
 
-            return Ok(questions);
+            List<Answer> answers = new List<Answer>();
+            foreach(var question in questions){
+                if(question.AnswerType == 1 && question.Id>=9)
+                    answers.AddRange(await _answerRepository.GetAnswersByQuestionId(question.Id));
+            }
+            
+            QuestionsWithAnswersDTO response = new QuestionsWithAnswersDTO 
+            {
+                Questions = questions,
+                Answers = answers
+            };
+            Console.WriteLine(questions.Count + " " + answers.Count);
+
+            return Ok(response);
         }
+
+        // [HttpGet("paginated")]
+        // public async Task<ActionResult<PagedList<Question>>> GetPaginatedQuestions([FromQuery] QuestionsParams questionsParams)
+        // {
+        //     Console.WriteLine("endpoint paginated" + ", orderBy=" + questionsParams.OrderBy + ", difficulty=" + questionsParams.Difficulty + "etc");
+        //     var questions = await _questionRepository.GetPaginatedQuestions(questionsParams);
+        //     Response.AddPaginationHeader(new PaginationHeader(
+        //         questions.CurrentPage,
+        //         questions.PageSize,
+        //         questions.TotalCount,
+        //         questions.TotalPages));
+
+        //     return Ok(questions);
+        // }
+
+        // [HttpGet("answers")]
+        // public async Task<ActionResult<List<Answer>>> GetAnswersByQuestionIds(List<int> questionIds) {
+        //     List<Answer> answers = new List<Answer>();
+        //     foreach(int questionId in questionIds)
+        //     {
+        //         answers.AddRange(await _answerRepository.GetAnswersByQuestionId(questionId));
+        //     }
+
+        //     return Ok(answers);
+        // }
     }
 }

@@ -5,6 +5,8 @@ import { SchoolClass } from '../_models/class';
 import { CategoryService } from '../_services/category.service';
 import { StudentsGrades } from '../_models/studentGrades';
 import { Category } from '../_models/category';
+import { StudentAttendance } from '../_models/studentAttendance';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-students',
@@ -16,13 +18,16 @@ export class StudentsComponent implements OnInit, OnChanges {
   @Input() mode: string | undefined;
   students: Student[] = [];
   studentsGrades: StudentsGrades[] = [];
+  studentsAttendance: StudentAttendance[] = [];
   categories: Category[] = [];
   addGradeMode = "false";
   showAddGradeForm: boolean = false;
+  attendanceMode: boolean = false;
+  selectedIds: number[] = [];
 
 
 
-  constructor(private studentService: StudentService, private categoryService: CategoryService) { }
+  constructor(private studentService: StudentService, private categoryService: CategoryService, private toastr: ToastrService) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -31,7 +36,6 @@ export class StudentsComponent implements OnInit, OnChanges {
       //Cand se schimba clasa, reincarc studentii si categoriile aferente
       console.log("selected class changed");
       this.loadStudentsByClass();
-      //this.studentsList.emit(this.students); //Trimit spre componenta classes lista actualizata
       if(this.schoolClass)
         this.loadCategoriesByClassNumber(this.schoolClass?.classNumber);
     }
@@ -76,6 +80,9 @@ export class StudentsComponent implements OnInit, OnChanges {
       this.studentService.getStudentGradesByClassId(this.schoolClass.id).subscribe({
         next: s => this.studentsGrades = s
       })
+      this.studentService.getStudentAttendanceByClassId(this.schoolClass.id).subscribe({
+        next: s => this.studentsAttendance = s
+      })
     }
   }
 
@@ -102,6 +109,36 @@ export class StudentsComponent implements OnInit, OnChanges {
     //ascund formularul pentru adaugare note
     this.loadStudentsByClass();
     this.hideComponent();
+  }
+
+  toggleAttendanceMode(value: boolean) {
+    this.attendanceMode = value;
+  }
+
+  toggleAttendanceSelection(id: number) {
+    const index = this.selectedIds.indexOf(id);
+    if (index > -1) {
+      this.selectedIds.splice(index, 1);
+    } else {
+      this.selectedIds.push(id);
+    }
+  }
+
+  isSelected(id: number): boolean {
+    return this.selectedIds.includes(id);
+  }
+
+  addAbsences() {
+    //request adaugare
+    this.studentService.addAbsences(this.selectedIds).subscribe({
+      next: _ => this.toastr.success('Absents added')
+    })
+    //actualizare
+    this.loadStudentsByClass();
+    //golire selectedIds
+    this.selectedIds = [];
+    //ascundere butoane
+    this.attendanceMode = false;
   }
 
 }

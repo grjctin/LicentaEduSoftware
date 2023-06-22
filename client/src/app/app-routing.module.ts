@@ -16,6 +16,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ClassesComponent } from './classes/classes.component';
 import { StudentsComponent } from './students/students.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { TestsComponent } from './tests/tests.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -31,8 +32,8 @@ const routes: Routes = [
       {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
       {path: 'categories', component: CategoriesComponent},
       {path: 'classes', component: ClassesComponent},
-      {path: 'students', component: StudentsComponent},
-      {path: 'questions', component: QuestionsComponent}
+      {path: 'questions', component: QuestionsComponent},
+      {path: 'tests', component: TestsComponent}
     ]
   }, 
   {path: 'errors', component: TestErrorComponent},

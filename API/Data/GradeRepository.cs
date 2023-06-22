@@ -19,7 +19,7 @@ namespace API.Data
 
         public void AddGrade(Grade grade)
         {
-            throw new NotImplementedException();
+            _context.Grades.Add(grade);
         }
 
         public async Task<bool> SaveAllAsync()

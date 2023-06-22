@@ -1,5 +1,6 @@
 using API.DTOs;
 using API.Entities;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace API.Interfaces
 {
@@ -14,6 +15,8 @@ namespace API.Interfaces
          void AddStudent(Student student);
          Task<bool> SaveAllAsync();
          void DeleteStudent(Student student);
+
+         Task<List<int>> GetStudentIdsByClassId(int classId);
 
     }
 }

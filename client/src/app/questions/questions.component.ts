@@ -5,6 +5,7 @@ import { Pagination } from '../_models/pagination';
 import { QuestionParams } from '../_models/questionParams';
 import { CategoryService } from '../_services/category.service';
 import { Category } from '../_models/category';
+import { Answer } from '../_models/answer';
 
 @Component({
   selector: 'app-questions',
@@ -15,12 +16,13 @@ export class QuestionsComponent implements OnInit {
   //@Input() categoryId : number | undefined;
   //@Input() difficulty : number | undefined;
   questions: Question[] = [];
+  answers: Answer[] = [];
   pagination: Pagination | undefined;
   questionParams: QuestionParams | undefined;
   difficultiesList = [1, 2, 3];
-  answerTypeList = [{value: 1, display: 'Multiple choice'}, {value: 2, display: 'Open answer'}];
+  answerTypeList = [{ value: 1, display: 'Multiple choice' }, { value: 2, display: 'Open answer' }];
   categories: Category[] = [];
-
+  addQuestionMode = false;
 
   constructor(private questionService: QuestionService, private categoryService: CategoryService) {
     this.questionParams = this.questionService.getQuestionParams();
@@ -59,7 +61,8 @@ export class QuestionsComponent implements OnInit {
       this.questionService.getPaginatedQuestions(this.questionParams).subscribe({
         next: response => {
           if (response.result && response.pagination) {
-            this.questions = response.result;
+            this.questions = response.result.questions;
+            this.answers = response.result.answers;
             this.pagination = response.pagination;
           }
         }
@@ -80,8 +83,51 @@ export class QuestionsComponent implements OnInit {
     });
   }
 
-  getAnswerTypeDisplay(answerType: number){
+  getAnswerTypeDisplay(answerType: number) {
     const display = this.answerTypeList.find(option => option.value == answerType)?.display;
     return display;
+  }
+
+  showForm() {
+    this.addQuestionMode = true;
+  }
+
+  hideForm() {
+    this.addQuestionMode = false;
+  }
+
+  questionAdded() {
+    this.getPaginatedQuestions();
+    this.hideForm();
+  }
+
+  pageChanged(event: any) {
+    if (this.questionParams) {
+      if (this.questionParams?.pageNumber !== event.page) {
+        this.questionParams.pageNumber = event.page;
+        this.getPaginatedQuestions();
+      }
+    }
+  }
+
+  getCorrectAnswer(questionId: number) {
+    if (questionId >= 9) {
+      const correctAnswer = this.answers.find(a => a.isCorrect && a.questionId === questionId);
+      return correctAnswer ? correctAnswer.text : '';
+    }
+    return null;
+  }
+
+  getAnswer(questionId: number, index: number): string | undefined {
+    if (questionId >= 9) {
+      const questionAnswers = this.answers.filter(a => a.questionId === questionId && !a.isCorrect);
+      return questionAnswers[index].text;
+    }
+    return '';
+  }
+
+  getCategoryName(categoryId: number) {
+    const category = this.categories.find(c => c.id == categoryId)
+    return category ? category.name : '';
   }
 }

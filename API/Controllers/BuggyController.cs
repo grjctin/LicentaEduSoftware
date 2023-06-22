@@ -11,14 +11,14 @@ namespace API.Controllers
 {
     public class BuggyController : BaseApiController
     {
-        public DataContext Context { get; }
+        //public DataContext Context { get; }
         private readonly DataContext _context;
         public BuggyController(DataContext context)
         {
             _context = context;
         }
 
-        [Authorize]
+        [Authorize] //pentru a returna 401 unauthorized daca userul nu e logat
         [HttpGet("auth")]
         public ActionResult<string> GetSecret()
         {
@@ -38,8 +38,10 @@ namespace API.Controllers
         public ActionResult<string> GetServerError()
         {
 
-            var thing = _context.Users.Find(-1);//null
-            var thingToReturn = thing.ToString(); //null reference exception
+            var thing = _context.Users.Find(-1);
+            var thingToReturn = thing.ToString(); 
+            //stim ca thing va fi null
+            //genereaza un null reference exception 
 
             return thingToReturn;            
         }

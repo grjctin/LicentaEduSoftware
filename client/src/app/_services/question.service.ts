@@ -5,6 +5,7 @@ import { Question } from '../_models/question';
 import { QuestionParams } from '../_models/questionParams';
 import { map, of } from 'rxjs';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
+import { QuestionsWithAnswers } from '../_models/QuestionsWithAnswers';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,13 @@ export class QuestionService {
     params = params.append('difficulty', questionParams.difficulty);
     params = params.append('orderBy', questionParams.orderBy);
 
-    return getPaginatedResult<Question []>(this.baseUrl + 'questions/paginated', params, this.http).pipe(
+    // return getPaginatedResult<Question []>(this.baseUrl + 'questions/paginated', params, this.http).pipe(
+    //   map(response => {
+    //     this.questionsCache.set(Object.values(questionParams).join('-'), response);
+    //     return response;
+    //   })
+    // )
+    return getPaginatedResult<QuestionsWithAnswers>(this.baseUrl + 'questions/paginated', params, this.http).pipe(
       map(response => {
         this.questionsCache.set(Object.values(questionParams).join('-'), response);
         return response;
@@ -62,5 +69,9 @@ export class QuestionService {
   resetQuestionParams() {
     this.questionParams = new QuestionParams();
     return this.questionParams;
+  }
+
+  addQuestion(question: any) {
+    return this.http.post(this.baseUrl + 'questions', question, {responseType: 'text'})
   }
 }

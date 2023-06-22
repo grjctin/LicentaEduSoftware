@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  baseUrl = environment.apiUrl
+  //baseUrl = environment.apiUrl
   categories: Category[] = [];
   classNumbers = [9,10,11,12];
   selectedClass: number | undefined;
@@ -23,7 +23,7 @@ export class CategoriesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //this.loadCategories();
+    this.loadCategories();
     //this.initializeForm();
   }
 
@@ -61,7 +61,6 @@ export class CategoriesComponent implements OnInit {
     this.categoryService.addCategory(classNumber, name).subscribe({
       next: () => {
         this.toastr.success('Category added successfully');
-        console.log('success');
       }
     })
     this.loadCategories();

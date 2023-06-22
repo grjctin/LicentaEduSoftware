@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -11,10 +11,10 @@ export class GradesService {
   constructor(private http: HttpClient) { }
 
   addGrade(studentId: number, grade: number) {
-    return this.http.post(this.baseUrl + 'grades', {studentId, grade});
+    return this.http.post(this.baseUrl + 'grades', { studentId, grade }, {responseType: 'text'});
   }
 
   addCategoryGrade(studentId: number, categoryId: number, grade: number) {
-    return this.http.post(this.baseUrl + 'grades/categoryGrades', {studentId, categoryId, grade}, {responseType: 'text'});
+    return this.http.post(this.baseUrl + 'grades/categoryGrades', { studentId, categoryId, grade }, { responseType: 'text' });
   }
 }

@@ -49,6 +49,8 @@ export class AddGradeComponent implements OnInit {
     console.log("add grade" + this.gradeForm.get('studentId')?.value + this.gradeForm.get('categoryId')?.value + this.gradeForm.get('grade')?.value);
     
     var studentId = this.gradeForm.get('studentId')?.value;
+    console.log("second method student id = " + studentId);
+
     var grade = this.gradeForm.get('grade')?.value;
     
     if (this.mode === "addCategoryGrade") {
@@ -64,7 +66,6 @@ export class AddGradeComponent implements OnInit {
     }
 
     this.reloadStudentGrades.emit();
-    //this.removeForm.emit();
   }
 
   cancelAdd() {

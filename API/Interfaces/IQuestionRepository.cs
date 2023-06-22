@@ -1,3 +1,4 @@
+using API.DTOs;
 using API.Entities;
 using API.Helpers;
 
@@ -10,7 +11,7 @@ namespace API.Interfaces
         Task<List<Question>> GetQuestionsByCategoryDifficulty(QuestionParams questionParams);
         Task<Question> GetQuestionById(int id);
         //Task<Question> GetQuestionByNameAsync(string name);
-        void AddQuestion(Question question);
+        void AddQuestion(AddQuestionDTO addQuestion);
         void DeleteQuestion(Question question);
         Task<List<Question>> GetQuestionsByClassNumber(int classNumber);
         Task<PagedList<Question>> GetPaginatedQuestions(QuestionsParams questionsParams);

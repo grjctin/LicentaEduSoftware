@@ -1,0 +1,59 @@
+<form [formGroup]="questionForm" (ngSubmit)="addQuestion()">
+    <div class="form-group d-flex align-items-center mt-2">
+      <label class="me-2 float-start">Category:</label>
+      <select class="form-select float-end" name="categoryId" formControlName="categoryId" style="width: 200px">
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div>
+  
+    <div class="form-group d-flex align-items-center mt-2">
+      <label for="difficulty" class="me-2 float-start">Difficulty:</label>
+      <select name="difficulty" formControlName="difficulty" style="width:200px" class="form-select float-end">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </div>
+  
+    <div class="form-group d-flex align-items-center mt-2">
+      <label class="me-2 float-start" for="answerType">Answer Type:</label>
+      <select class="form-select float-end" name="answerType" formControlName="answerType" style="width: 200px;">
+        <option *ngFor="let type of answerTypes" [value]="type.value">{{ type.display }}</option>
+      </select>
+    </div>
+  
+    <div class="form-group d-flex align-items-center mt-2">
+      <label class="me-2 float-start" for="text">Question Text:</label>
+      <input class="form-control float-end w-75" type="text" name="text" formControlName="text" />
+    </div>
+  
+    <div *ngIf="multipleChoiceSelected">
+      <div formGroupName="answers" class="form-group mt-2">
+        <div class=" form-group d-flex align-items-center mt-2">
+          <label class="me-2 float-start">Correct Answer:</label>
+          <input class="form-control float-end w-75" type="text" formControlName="correctAnswer" />
+        </div>
+  
+        <div class="form-group d-flex align-items-center mt-2">
+          <label class="me-2 float-start">Answer 2:</label>
+          <input class="form-control float-end w-75" type="text" formControlName="answer2" />
+        </div>
+  
+        <div class="form-group d-flex align-items-center mt-2">
+          <label class="me-2 float-start">Answer 3:</label>
+          <input class="form-control float-end w-75" type="text" formControlName="answer3" />
+        </div>
+  
+        <div class="form-group d-flex align-items-center mt-2">
+          <label class="me-2 float-start">Answer 4:</label>
+          <input class="form-control float-end w-75" type="text" formControlName="answer4" />
+        </div>  
+      </div>
+    </div>
+
+  <div class="mt-2">
+    <button type="submit" class="btn btn-primary" [disabled]="questionForm.invalid">Add Question</button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="cancelAdd()">Cancel</button>
+  </div>
+    
+  </form>

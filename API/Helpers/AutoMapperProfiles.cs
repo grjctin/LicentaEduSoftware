@@ -25,7 +25,7 @@ namespace API.Helpers
                 .ForMember(d => d.RecipientPhotoUrl,
                     opt => opt.MapFrom(s => s.Recipient.Photos
                         .FirstOrDefault(x => x.IsMain).Url));
-
+            CreateMap<Student, StudentDto>();
         }
     }
 }

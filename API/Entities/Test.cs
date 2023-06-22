@@ -8,8 +8,6 @@ namespace API.Entities
         public int StudentId { get; set; }
         public Student Student { get; set; }
         public DateTime StartDate { get; set; }
-        public int Duration { get; set; }
-
-        
+        public int Duration { get; set; }        
     }
 }

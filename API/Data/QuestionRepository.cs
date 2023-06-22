@@ -1,3 +1,4 @@
+using API.DTOs;
 using API.Entities;
 using API.Helpers;
 using API.Interfaces;
@@ -15,9 +16,51 @@ namespace API.Data
             _context = context;
         }
 
-        public void AddQuestion(Question question)
+        public void AddQuestion(AddQuestionDTO addQuestion)
         {
-            _context.Questions.Add(question);
+            Question question = new Question{
+                CategoryId=addQuestion.CategoryId,
+                difficulty = addQuestion.Difficulty,
+                AnswerType = addQuestion.AnswerType,
+                Text = addQuestion.Text,
+                DateAdded = addQuestion.DateAdded
+            }; 
+            if(addQuestion.AnswerType == 1) //grila
+            {
+                _context.Questions.Add(question);
+                _context.SaveChanges();
+                //salvez modificarile pentru ca entity framework sa populeze campul Id din obiectul question
+                //am nevoie de id pentru adaugarea raspunsurilor
+                Answer correctAnswer = new Answer{
+                    QuestionId = question.Id,
+                    Text = addQuestion.CorrectAnswer,
+                    IsCorrect = true
+                };
+                _context.Answers.Add(correctAnswer);
+                Answer ans2 = new Answer{
+                    QuestionId = question.Id,
+                    Text = addQuestion.Answer2,
+                    IsCorrect = false
+                };
+                _context.Answers.Add(ans2);
+                Answer ans3 = new Answer{
+                    QuestionId = question.Id,
+                    Text = addQuestion.Answer3,
+                    IsCorrect = false
+                };
+                _context.Answers.Add(ans3);
+                Answer ans4 = new Answer{
+                    QuestionId = question.Id,
+                    Text = addQuestion.Answer4,
+                    IsCorrect = false
+                };
+                _context.Answers.Add(ans4);               
+
+            }
+            else
+            {
+                _context.Questions.Add(question);
+            }
         }
 
         public void DeleteQuestion(Question question)

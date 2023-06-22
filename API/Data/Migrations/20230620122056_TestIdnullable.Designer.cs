@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230620122056_TestIdnullable")]
+    partial class TestIdnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
@@ -36,7 +39,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers", (string)null);
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
@@ -86,7 +89,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("API.Entities.Attendance", b =>
@@ -105,7 +108,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Attendance", (string)null);
+                    b.ToTable("Attendance");
                 });
 
             modelBuilder.Entity("API.Entities.Category", b =>
@@ -122,7 +125,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("API.Entities.CategoryGrade", b =>
@@ -146,7 +149,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("CategoryGrades", (string)null);
+                    b.ToTable("CategoryGrades");
                 });
 
             modelBuilder.Entity("API.Entities.Grade", b =>
@@ -173,7 +176,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("Grades", (string)null);
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("API.Entities.Message", b =>
@@ -215,7 +218,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -240,7 +243,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Photos", (string)null);
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("API.Entities.Question", b =>
@@ -268,7 +271,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("API.Entities.SchoolClass", b =>
@@ -290,7 +293,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Classes", (string)null);
+                    b.ToTable("Classes");
                 });
 
             modelBuilder.Entity("API.Entities.Student", b =>
@@ -321,7 +324,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("SchoolClassId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("API.Entities.Test", b =>
@@ -343,7 +346,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Tests", (string)null);
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("API.Entities.TestHasQuestion", b =>
@@ -367,7 +370,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("TestHasQuestion", (string)null);
+                    b.ToTable("TestHasQuestion");
                 });
 
             modelBuilder.Entity("API.Entities.TestTaken", b =>
@@ -386,7 +389,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("TestHasQuestionId");
 
-                    b.ToTable("TestTaken", (string)null);
+                    b.ToTable("TestTaken");
                 });
 
             modelBuilder.Entity("API.Entities.UserLike", b =>
@@ -401,7 +404,7 @@ namespace API.Data.Migrations
 
                     b.HasIndex("TargetUserId");
 
-                    b.ToTable("Likes", (string)null);
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("API.Entities.Answer", b =>

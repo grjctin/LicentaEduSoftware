@@ -6,12 +6,13 @@ import { SchoolClass } from '../_models/class';
 import { SchoolClassService } from './school-class.service';
 import { map } from 'rxjs';
 import { StudentsGrades } from '../_models/studentGrades';
+import { StudentAttendance } from '../_models/studentAttendance';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  baseUrl = environment.apiUrl
+  baseUrl = environment.apiUrl;
   students: Student[] = [];
   classes: SchoolClass[] = []
   studentsCache = new Map(); //kvp, key = clasa, value = lista studenti
@@ -47,5 +48,13 @@ export class StudentService {
 
   getStudentGradesByClassId(id: number) {
     return this.http.get<StudentsGrades[]>(this.baseUrl + 'students/grades/classId=' + id);
+  }
+
+  getStudentAttendanceByClassId(id: number) {
+    return this.http.get<StudentAttendance[]>(this.baseUrl + 'students/attendance/classId=' + id);
+  }
+
+  addAbsences(studentIds: number[]) {
+    return this.http.post(this.baseUrl + 'students/add-attendance', studentIds, {responseType: 'text'});
   }
 }

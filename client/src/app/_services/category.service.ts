@@ -21,7 +21,6 @@ export class CategoryService {
   }
 
   addCategory(classNumber: number, name: string) {
-    console.log(classNumber + " " + name);
     return this.http.post(this.baseUrl + 'categories', {classNumber, categoryName: name},{responseType: 'text'});    
   }
 

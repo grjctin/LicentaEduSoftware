@@ -2,55 +2,113 @@
   <form #form="ngForm" class="mb-3" (ngSubmit)="getPaginatedQuestions()" autocomplete="off">
     <div class="form-group d-flex align-items-center mb-2">
       <label for="category" class="me-2">Category:</label>
-      <select name="category" id="category" class="form-select" [(ngModel)]="questionParams.categoryId" style="width: 200px;">
+      <select name="category" id="category" class="form-select" [(ngModel)]="questionParams.categoryId"
+        style="width: 200px;">
         <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
       </select>
     </div>
-  
+
     <div class="form-group d-flex align-items-center mb-2" style="width: 400px;">
       <label for="answerType" class="me-2 float-start">Answer type:</label>
-      <select name="answerType" id="answerType" class="form-select float-end" [(ngModel)]="questionParams.answerType" style="width: 200px;">
+      <select name="answerType" id="answerType" class="form-select float-end" [(ngModel)]="questionParams.answerType"
+        style="width: 200px;">
         <option *ngFor="let a of answerTypeList" [value]="a.value">{{ a.display }}</option>
       </select>
     </div>
-  
+
     <div class="form-group d-flex align-items-center mb-2">
       <label for="difficulty" class="me-2">Difficulty:</label>
-      <select name="difficulty" id="difficulty" class="form-select" [(ngModel)]="questionParams.difficulty" style="width: 200px;">
+      <select name="difficulty" id="difficulty" class="form-select" [(ngModel)]="questionParams.difficulty"
+        style="width: 200px;">
         <option *ngFor="let dif of difficultiesList" [value]="dif">{{ dif }}</option>
       </select>
     </div>
-  
+
     <div class="d-flex justify-content-center">
       <div class="float-start">
         <button class="btn btn-primary me-2 mt-3" type="submit">Apply Filters</button>
         <button (click)="resetFilters()" class="btn btn-primary me-2 mt-3" type="button">Reset Filters</button>
       </div>
-      
+
       <div style="width: 150px;" class="d-flex"></div>
 
       <div class="btn-group float-end mt-3">
-        <button type="button" class="btn btn-primary" name="orderBy" [(ngModel)]="questionParams.orderBy" btnRadio="dateAdded" (click)="getPaginatedQuestions()">
+        <button type="button" class="btn btn-primary" name="orderBy" [(ngModel)]="questionParams.orderBy"
+          btnRadio="dateAdded" (click)="getPaginatedQuestions()">
           Date added
         </button>
-        <button type="button" class="btn btn-primary" name="orderBy" [(ngModel)]="questionParams.orderBy" btnRadio="difAscending" (click)="getPaginatedQuestions()">
+        <button type="button" class="btn btn-primary" name="orderBy" [(ngModel)]="questionParams.orderBy"
+          btnRadio="difAscending" (click)="getPaginatedQuestions()">
           Difficulty ascending
         </button>
-        <button type="button" class="btn btn-primary" name="orderBy" [(ngModel)]="questionParams.orderBy" btnRadio="difDescending" (click)="getPaginatedQuestions()">
+        <button type="button" class="btn btn-primary" name="orderBy" [(ngModel)]="questionParams.orderBy"
+          btnRadio="difDescending" (click)="getPaginatedQuestions()">
           Difficulty descending
         </button>
       </div>
     </div>
-  
-    
+
+
   </form>
 </div>
 
-<div class="row" *ngFor="let question of questions">
-    <p>Id = {{question.id}}, 
-      CategoryId = {{question.categoryId}}, 
-      Difficulty = {{question.difficulty}}, 
-      Answer type = {{getAnswerTypeDisplay(question.answerType)}}, 
-      Text = {{question.text}}
-    </p>
+<!-- <div class="row" *ngFor="let question of questions">
+  <p>Id = {{question.id}},
+    CategoryId = {{question.categoryId}},
+    Difficulty = {{question.difficulty}},
+    Answer type = {{getAnswerTypeDisplay(question.answerType)}},
+    Text = {{question.text}}
+  </p>
+</div> -->
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Category</th>
+      <th>Difficulty</th>
+      <th>Question Text</th>
+      <th>Answer Type</th>
+      <th>Correct Answer</th>
+      <th>Answer 2</th>
+      <th>Answer 3</th>
+      <th>Answer 4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let question of questions">
+      <td>{{ question.id }}</td>
+      <td>{{ getCategoryName(question.categoryId) }}</td>
+      <td>{{ question.difficulty }}</td>
+      <td>{{ question.text }}</td>
+      <td>{{getAnswerTypeDisplay(question.answerType)}}</td>
+      <ng-container *ngIf="question.answerType === 1">
+        <td>{{ getCorrectAnswer(question.id) }}</td>
+        <td>{{ getAnswer(question.id, 0) }}</td>
+        <td>{{ getAnswer(question.id, 1) }}</td>
+        <td>{{ getAnswer(question.id, 2) }}</td>
+      </ng-container>
+      <ng-container *ngIf="question.answerType !== 1">
+        <td colspan="4" class="text-center">No answers available</td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center" *ngIf="pagination">
+  <pagination 
+    [boundaryLinks]="true" 
+    [totalItems]="pagination.totalItems" 
+    [itemsPerPage]="pagination.itemsPerPage"
+    [maxSize]="10"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;" 
+    nextText="&rsaquo;" 
+    firstText="&laquo;"
+    lastText="&raquo;">
+  </pagination>
 </div>
+
+<button *ngIf="!addQuestionMode" class="btn btn-primary" (click)="showForm()">Add Question</button>
+<app-questions-form *ngIf="addQuestionMode" (questionAdded)="questionAdded()" (removeForm)="hideForm()" [categories]="categories"></app-questions-form>

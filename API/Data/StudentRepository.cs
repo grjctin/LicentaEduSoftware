@@ -2,6 +2,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace API.Data
 {
@@ -96,6 +97,11 @@ namespace API.Data
         public void UpdateStudent(Student student)
         {
             _context.Entry(student).State = EntityState.Modified;
+        }
+
+        public async Task<List<int>> GetStudentIdsByClassId(int classId)
+        {
+            return await _context.Students.Where(s => s.SchoolClassId == classId).Select(s => s.Id).ToListAsync();
         }
 
 

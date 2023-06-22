@@ -32,6 +32,8 @@ import { ClassesComponent } from './classes/classes.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentDetailsComponent } from './students/student-details/student-details.component';
 import { AddGradeComponent } from './add-grade/add-grade.component';
+import { QuestionsFormComponent } from './questions/questions-form/questions-form.component';
+import { TestsComponent } from './tests/tests.component';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { AddGradeComponent } from './add-grade/add-grade.component';
     ClassesComponent,
     StudentsComponent,
     StudentDetailsComponent,
-    AddGradeComponent
+    AddGradeComponent,
+    QuestionsFormComponent,
+    TestsComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -13,7 +13,7 @@ export class ClassesComponent implements OnInit {
   classes: SchoolClass[] = [];
   students: any[] = [];
   selectedClass: SchoolClass | undefined;
-  viewMode: string = "details"; //details pt student details, grades pt student grades + category grades
+  viewMode: string = "details"; //details pt student details, grades pt student grades + category grades, attendance pentru prezente
   
 
   constructor(private classService: SchoolClassService) { }
