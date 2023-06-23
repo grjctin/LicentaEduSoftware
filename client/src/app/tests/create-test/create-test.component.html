@@ -1,0 +1,59 @@
+<p>create-test works!</p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="questionForm" (ngSubmit)="questionFormSubmit()">
+        <div class="form-group d-flex align-items-center mt-2">
+            <label class="me-2 float-start">Category:</label>
+            <select class="form-select float-end" name="categoryId" formControlName="categoryId" style="width: 200px">
+              <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+
+        <div class="form-group d-flex align-items-center mt-2">
+          <label for="difficulty" class="me-2 float-start">Difficulty:</label>
+          <select name="difficulty" formControlName="difficulty" style="width:200px" class="form-select float-end">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+
+        <div class="form-group d-flex align-items-center mt-2">
+          <label class="me-2 float-start" for="answerType">Answer Type:</label>
+          <select class="form-select float-end" name="answerType" formControlName="answerType" style="width: 200px;">
+            <option *ngFor="let type of answerTypes" [value]="type.value">{{ type.display }}</option>
+          </select>
+        </div>
+
+        <div class="form-group d-flex align-items-center mt-2">
+          <label for="nrQuestions" class="me-2 float-start">Number of Questions:</label>
+          <input class="form-control float-end w-75" type="number" min="1" id="nrQuestions" formControlName="numberOfQuestions"
+            required>
+        </div>
+
+        <button class="btn btn-primary mt-2" type="submit">Add to test</button>
+      </form>
+    </div>
+
+
+    <div class="col-md-6">
+      <h4>Creating test for {{selectedIds.length}} students</h4>
+      <h2>You currently chose: </h2>
+      <p *ngFor="let config of questionConfigs"> {{config.numberOfQuestions}} {{getAnswerTypeDisplay(config.answerType)}} questions of difficulty {{config.difficulty}} and category {{getCategoryName(config.categoryId)}} </p>
+      
+      <form [formGroup]="testForm" (ngSubmit)="testFormSubmit()">
+        <div class="form-group d-flex align-items-center mt-2">
+          <label class="me-2" for="startDate">Start Date:</label>
+          <input type="date" id="startDate" formControlName="startDate" required>
+        </div>
+        <div class="form-group d-flex align-items-center mt-2">
+          <label class="me-2" for="duration">Duration (in minutes):</label>
+          <input type="number" id="duration" formControlName="duration" required>
+        </div>
+        <button class="btn btn-primary mt-2" type="submit">Create Tests</button>
+      </form>
+    </div>
+  </div>
+</div>

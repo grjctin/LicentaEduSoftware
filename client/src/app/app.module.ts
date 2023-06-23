@@ -34,6 +34,7 @@ import { StudentDetailsComponent } from './students/student-details/student-deta
 import { AddGradeComponent } from './add-grade/add-grade.component';
 import { QuestionsFormComponent } from './questions/questions-form/questions-form.component';
 import { TestsComponent } from './tests/tests.component';
+import { CreateTestComponent } from './tests/create-test/create-test.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { TestsComponent } from './tests/tests.component';
     StudentDetailsComponent,
     AddGradeComponent,
     QuestionsFormComponent,
-    TestsComponent
+    TestsComponent,
+    CreateTestComponent
   ],
   imports: [
     BrowserAnimationsModule,

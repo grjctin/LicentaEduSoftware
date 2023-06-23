@@ -34,6 +34,7 @@
           <th>Last Name</th>
           <th>Grades</th>
           <th *ngFor="let category of categories">{{category.name}}</th>
+          <th *ngIf="testMode">Select student:</th>
         </tr>
       </thead>
       <tbody>
@@ -43,9 +44,21 @@
           <td>{{sGrades.lastName}}</td>
           <td>{{sGrades.grades}}</td>
           <td *ngFor="let c of categories">{{sGrades.categoryGrades[c.id]}}</td>
-        </tr>
-      </tbody>
+          <td *ngIf="testMode">
+            <input class="float-end" type="checkbox" [checked]="isSelected(sGrades.id)" (change)="toggleSelectedId(sGrades.id)" />
+          </td>
+        </tr>   
+      </tbody>  
+        
     </table>
+    <div class="row mt-2">
+      <div class="col-12 text-end">
+        <div class="btn-group">
+          <button *ngIf="testMode" class="btn btn-primary" (click)="createTests()">Generate Tests</button>
+          <button *ngIf="testMode" class="btn btn-primary" (click)="cancelCreateTests()">Cancel</button>
+        </div>       
+      </div>
+    </div>
   </div>
   <div *ngIf="mode === 'attendance'">
     <table class="table">
@@ -67,7 +80,7 @@
             <p *ngFor="let date of s.presenceDates">{{date | date:'yyyy-MM-dd HH:00'}}</p> 
           </td>
           <td *ngIf="attendanceMode">
-            <input class="float-end" type="checkbox" [checked]="isSelected(s.id)" (change)="toggleAttendanceSelection(s.id)" />
+            <input class="float-end" type="checkbox" [checked]="isSelected(s.id)" (change)="toggleSelectedId(s.id)" />
           </td>
         </tr>
       </tbody>
@@ -91,7 +104,8 @@
 
 <div *ngIf="mode === 'grades'" >
   <button *ngIf="!showAddGradeForm" class="btn btn-primary me-2" (click)="toggleAddGradeMode('addGrade')"> Add Grade </button>
-  <button *ngIf="!showAddGradeForm" class="btn btn-primary" (click)="toggleAddGradeMode('addCategoryGrade')"> Add Category Grade </button>
+  <button *ngIf="!showAddGradeForm" class="btn btn-primary me-2" (click)="toggleAddGradeMode('addCategoryGrade')"> Add Category Grade </button>  
+  <button *ngIf="!showAddGradeForm && !testMode" class="btn btn-primary" (click)="toggleTestMode(true)"> Create Test </button>  
   <app-add-grade *ngIf="showAddGradeForm" (reloadStudentGrades)="gradeAdded()" (removeForm)="hideComponent()" [mode]="addGradeMode" [categories]="categories" [students]="students"></app-add-grade>
 </div>
 

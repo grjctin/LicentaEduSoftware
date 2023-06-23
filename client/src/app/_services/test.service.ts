@@ -10,5 +10,8 @@ export class TestService {
 
   constructor(private http: HttpClient) { }
 
-  
+  createTests(testParams: any) {
+    return this.http.post(this.baseUrl + 'test', testParams, { responseType: 'text' });
+  }
+
 }

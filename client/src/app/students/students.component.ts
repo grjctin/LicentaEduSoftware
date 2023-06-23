@@ -7,6 +7,7 @@ import { StudentsGrades } from '../_models/studentGrades';
 import { Category } from '../_models/category';
 import { StudentAttendance } from '../_models/studentAttendance';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -24,10 +25,11 @@ export class StudentsComponent implements OnInit, OnChanges {
   showAddGradeForm: boolean = false;
   attendanceMode: boolean = false;
   selectedIds: number[] = [];
+  testMode = false;
 
 
 
-  constructor(private studentService: StudentService, private categoryService: CategoryService, private toastr: ToastrService) { }
+  constructor(private studentService: StudentService, private categoryService: CategoryService, private toastr: ToastrService, private router: Router) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -36,6 +38,7 @@ export class StudentsComponent implements OnInit, OnChanges {
       //Cand se schimba clasa, reincarc studentii si categoriile aferente
       console.log("selected class changed");
       this.loadStudentsByClass();
+      this.selectedIds = [];
       if(this.schoolClass)
         this.loadCategoriesByClassNumber(this.schoolClass?.classNumber);
     }
@@ -113,9 +116,10 @@ export class StudentsComponent implements OnInit, OnChanges {
 
   toggleAttendanceMode(value: boolean) {
     this.attendanceMode = value;
+    this.selectedIds = [];
   }
 
-  toggleAttendanceSelection(id: number) {
+  toggleSelectedId(id: number) {
     const index = this.selectedIds.indexOf(id);
     if (index > -1) {
       this.selectedIds.splice(index, 1);
@@ -139,6 +143,30 @@ export class StudentsComponent implements OnInit, OnChanges {
     this.selectedIds = [];
     //ascundere butoane
     this.attendanceMode = false;
+  }
+
+  toggleTestMode(value: boolean) {
+    this.testMode = true;
+  }
+
+  createTests() {
+    this.testMode = false;
+    //de aici trebuie sa merg in create test component si sa trimit selectedIds ca parametru
+    const categoriesArray = JSON.stringify(this.categories);
+    const params = {selectedIds: this.selectedIds.join(','), categories: categoriesArray}
+    //this.router.navigate(['/create-test'], {queryParams: {selectedIds: this.selectedIds.join(',')}});
+    this.router.navigate(['/create-test'], {queryParams: params});
+    console.log(this.selectedIds);
+    this.selectedIds = [];
+  }
+
+  cancelCreateTests() {
+    this.testMode = false;
+    this.selectedIds = [];
+  }
+
+  studentIdsContains(id: number): boolean {
+    return this.selectedIds.includes(id);
   }
 
 }
