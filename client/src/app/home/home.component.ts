@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AccountService } from '../_services/account.service';
+import { NavHomeSharedService } from '../nav-home-shared.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +10,16 @@ import { Component } from '@angular/core';
 export class HomeComponent {
   registerMode=false;
   users: any;
+  isLoggedIn: boolean = false;
 
-  constructor() { }
+  constructor(private navHomeService: NavHomeSharedService) { }
 
   ngOnInit(): void{
+    const user = localStorage.getItem('user');
+    this.isLoggedIn = !!user;
+    this.navHomeService.triggerEvent$.subscribe(
+      () => this.isLoggedIn = false
+    )
   }
 
   registerToggle(){

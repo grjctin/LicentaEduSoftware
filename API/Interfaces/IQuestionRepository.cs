@@ -10,7 +10,6 @@ namespace API.Interfaces
         Task<List<Question>> GetQuestionsByCategoryId(int categoryId);
         Task<List<Question>> GetQuestionsByCategoryDifficulty(QuestionParams questionParams);
         Task<Question> GetQuestionById(int id);
-        //Task<Question> GetQuestionByNameAsync(string name);
         void AddQuestion(AddQuestionDTO addQuestion);
         void DeleteQuestion(Question question);
         Task<List<Question>> GetQuestionsByClassNumber(int classNumber);

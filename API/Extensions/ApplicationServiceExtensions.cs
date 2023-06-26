@@ -19,11 +19,11 @@ namespace API.Extensions
             // pentru a putea injecta in Controllere
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
-            services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<LogUserActivity>();
-            services.AddScoped<ILikesRepository, LikesRepository>();
-            services.AddScoped<IMessageRepository, MessageRepository>();
+            //services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+            //services.AddScoped<IPhotoService, PhotoService>();
+            //services.AddScoped<LogUserActivity>();
+            //services.AddScoped<ILikesRepository, LikesRepository>();
+            //services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<ISchoolClassRepository, SchoolClassRepository>();

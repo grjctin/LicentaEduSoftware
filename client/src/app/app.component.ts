@@ -9,23 +9,14 @@ import { User } from './_models/user';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Dating app client';
-  //users: any;
+  title = 'Educational software client';
 
   constructor(private http: HttpClient, private accountService: AccountService) {}
 
   ngOnInit(): void {
-    //this.getUsers();
     this.setCurrentUser();
   }
 
-  // getUsers(){
-  //   this.http.get('https://localhost:5001/api/users').subscribe({
-  //     next: response => this.users = response,
-  //     error: error => console.log(error),
-  //     complete: () => console.log("request has completed") 
-  //   })
-  // }
 
   setCurrentUser(){
     //const user: User =JSON.parse(localStorage.getItem('user')!);

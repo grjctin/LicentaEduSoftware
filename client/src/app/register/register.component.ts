@@ -29,14 +29,11 @@ export class RegisterComponent{
 
   initializeForm() {
     this.registerForm = new FormGroup({
-      gender: new FormControl('male'),
       username: new FormControl('', Validators.required),
-      knownAs: new FormControl('', Validators.required),
-      dateOfBirth: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
-      country: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, 
-        Validators.minLength(4),Validators.maxLength(8)]),
+        Validators.minLength(4),Validators.maxLength(12)]),
       confirmPassword: new FormControl('', [Validators.required, this.matchValues('password')])
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
@@ -52,11 +49,11 @@ export class RegisterComponent{
   }
 
   register() {
-    const dob = this.getDateOnly(this.registerForm.controls['dateOfBirth'].value);
-    const values = {...this.registerForm.value,dateOfBirth: dob}
+    // const dob = this.getDateOnly(this.registerForm.controls['dateOfBirth'].value);
+    const values = {...this.registerForm.value}
     this.accountService.register(values).subscribe({
       next: () => {
-        this.router.navigateByUrl('/members')
+        this.router.navigateByUrl('/classes')
       },
       error: error => {
         this.validationErrors = error
@@ -69,11 +66,11 @@ export class RegisterComponent{
   }
 
   //metoda pentru a returna doar data, nu si timpul si timezoneul
-  private getDateOnly(dob: string | undefined) {
-    if(!dob) return;
-    let theDob = new Date(dob);
-    return new Date(theDob.setMinutes(theDob.getMinutes()-theDob.getTimezoneOffset()))
-    .toISOString().slice(0,10);
-  }
+  // private getDateOnly(dob: string | undefined) {
+  //   if(!dob) return;
+  //   let theDob = new Date(dob);
+  //   return new Date(theDob.setMinutes(theDob.getMinutes()-theDob.getTimezoneOffset()))
+  //   .toISOString().slice(0,10);
+  // }
 
 }
