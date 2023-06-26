@@ -19,15 +19,9 @@ export class ClassesComponent implements OnInit {
   constructor(private classService: SchoolClassService) { }
 
   ngOnInit(): void {
-    //this.loadAllClasses();
     this.loadProfessorClasses();
   }
 
-  loadAllClasses() {
-    // this.classService.getAllClasses().subscribe({
-    //   next: response => this.classes = response
-    // })
-  }
 
   loadProfessorClasses() {
     this.classService.getProfessorClasses().subscribe({

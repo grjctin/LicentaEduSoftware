@@ -4,6 +4,6 @@ export class QuestionParams {
     //cazul difficulty=4 este default iar acesta va returna toate intrebarile, la care se va aplica orderBy, pageNumber si pageSize
     answerType = 0; //1, 2
     pageNumber = 1;
-    pageSize = 10;
+    pageSize = 5;
     orderBy = 'dateAdded'; //dateAdded, difDescending, difAscending
 }

@@ -151,10 +151,8 @@ export class StudentsComponent implements OnInit, OnChanges {
 
   createTests() {
     this.testMode = false;
-    //de aici trebuie sa merg in create test component si sa trimit selectedIds ca parametru
     const categoriesArray = JSON.stringify(this.categories);
     const params = {selectedIds: this.selectedIds.join(','), categories: categoriesArray}
-    //this.router.navigate(['/create-test'], {queryParams: {selectedIds: this.selectedIds.join(',')}});
     this.router.navigate(['/create-test'], {queryParams: params});
     console.log(this.selectedIds);
     this.selectedIds = [];
