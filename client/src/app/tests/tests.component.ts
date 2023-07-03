@@ -7,17 +7,17 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './tests.component.html',
   styleUrls: ['./tests.component.css']
 })
-export class TestsComponent implements OnInit {
-  mode: string = "";
+export class TestsComponent {
+  mode: string = "view";
+  selectedTestId: number = 0;
 
   constructor(private testService: TestService, private toastr: ToastrService) { };
   
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
 
   changeMode(value: string) {
     this.mode = value;
   }
+
+  selectedTestChanged(){}
 
 }

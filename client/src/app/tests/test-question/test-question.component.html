@@ -1,0 +1,13 @@
+<div *ngIf="question">
+    <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Question {{ question.questionNumber }}</h5>
+          <p class="card-text">{{ question.questionText }}</p>
+          <ul *ngIf="question.answerType === 1" class="list-group">
+            <li class="list-group-item" *ngFor="let answer of question.answers; let i = index" [ngClass]="{ 'correct-answer': i === question.correctAnswer }">
+              {{ answer }}
+            </li>
+          </ul>
+        </div>
+      </div>
+</div>

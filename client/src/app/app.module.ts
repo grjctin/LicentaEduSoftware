@@ -28,6 +28,9 @@ import { AddGradeComponent } from './add-grade/add-grade.component';
 import { QuestionsFormComponent } from './questions/questions-form/questions-form.component';
 import { TestsComponent } from './tests/tests.component';
 import { CreateTestComponent } from './tests/create-test/create-test.component';
+import { ViewTestComponent } from './tests/view-test/view-test.component';
+import { CorrectTestComponent } from './tests/correct-test/correct-test.component';
+import { TestQuestionComponent } from './tests/test-question/test-question.component';
 
 
 @NgModule({
@@ -50,7 +53,10 @@ import { CreateTestComponent } from './tests/create-test/create-test.component';
     AddGradeComponent,
     QuestionsFormComponent,
     TestsComponent,
-    CreateTestComponent
+    CreateTestComponent,
+    ViewTestComponent,
+    CorrectTestComponent,
+    TestQuestionComponent
   ],
   imports: [
     BrowserAnimationsModule,

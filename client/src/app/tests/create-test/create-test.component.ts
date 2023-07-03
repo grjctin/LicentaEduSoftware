@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/_models/category';
 import { TestQuestion } from 'src/app/_models/testQuestion';
 import { TestService } from 'src/app/_services/test.service';
@@ -18,7 +19,7 @@ export class CreateTestComponent implements OnInit{
   answerTypes = [{value: 1, display: 'Multiple choice'}, {value: 2, display: 'Open answer'}];
   categories: Category[] = []
 
-  constructor(private route: ActivatedRoute, private testService: TestService) {}
+  constructor(private route: ActivatedRoute, private testService: TestService, private toastr : ToastrService) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
@@ -33,8 +34,6 @@ export class CreateTestComponent implements OnInit{
         }
       }
     )
-    this.categories.forEach(c => console.log(c.name));
-    this.selectedIds.forEach(id => console.log(id));
      
     this.questionForm = new FormGroup({
       categoryId: new FormControl('',[Validators.required]),
@@ -60,14 +59,17 @@ export class CreateTestComponent implements OnInit{
   }
 
   testFormSubmit() {
+    
     const testParams = {
       questionConfigurations: this.questionConfigs,
       studentIds: this.selectedIds,
-      startDate: this.testForm.get('startDate')?.value,
+      startDate: new Date(this.testForm.get('startDate')?.value),
       duration: this.testForm.get('duration')?.value
     }
     console.log(testParams);
-    //request catre testService sa creeze testul
+    this.testService.createTests(testParams).subscribe({
+      next: response => this.toastr.success(response)
+    })
   }
 
   getCategoryName(id: number) {

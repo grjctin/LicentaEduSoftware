@@ -1,0 +1,13 @@
+<div *ngIf="test">
+    <h4>Test Id: {{testId}}</h4>
+    <h4>Student Name: {{test.studentName}} </h4>
+    <h4>Scheduled date: {{test.startDate | date:'dd-MM-yyyy HH:00'}}</h4>
+    <h4>Duration: {{test.duration}}</h4>
+    <div *ngFor="let q of test.questions">
+        <app-test-question [question]="q"></app-test-question>
+    </div>
+</div>
+
+<!-- <div *ngFor="let q of testQuestions">
+    introduc componenta test-question cu intrebarea ca input
+</div> -->

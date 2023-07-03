@@ -21,6 +21,9 @@ app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("ht
 app.UseAuthentication(); // valideaza cheia
 app.UseAuthorization(); // verifica daca ai dreptul de a te loga
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 
 
@@ -31,7 +34,6 @@ try
 {
     var context = services.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
-    await Seed.SeedUsers(context);
 }
 catch (Exception ex)
 {

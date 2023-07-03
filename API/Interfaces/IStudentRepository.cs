@@ -16,6 +16,8 @@ namespace API.Interfaces
          Task<bool> SaveAllAsync();
          void DeleteStudent(Student student);
 
+         Task<string> GetStudentNameById(int studentId);
+
          Task<List<int>> GetStudentIdsByClassId(int classId);
 
     }

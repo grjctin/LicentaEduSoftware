@@ -31,6 +31,7 @@ namespace API.Extensions
             services.AddScoped<IGradeRepository, GradeRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+            services.AddScoped<ITestRepository, TestRepository>();
 
             return services;
         }

@@ -94,29 +94,5 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        // [HttpGet("paginated")]
-        // public async Task<ActionResult<PagedList<Question>>> GetPaginatedQuestions([FromQuery] QuestionsParams questionsParams)
-        // {
-        //     Console.WriteLine("endpoint paginated" + ", orderBy=" + questionsParams.OrderBy + ", difficulty=" + questionsParams.Difficulty + "etc");
-        //     var questions = await _questionRepository.GetPaginatedQuestions(questionsParams);
-        //     Response.AddPaginationHeader(new PaginationHeader(
-        //         questions.CurrentPage,
-        //         questions.PageSize,
-        //         questions.TotalCount,
-        //         questions.TotalPages));
-
-        //     return Ok(questions);
-        // }
-
-        // [HttpGet("answers")]
-        // public async Task<ActionResult<List<Answer>>> GetAnswersByQuestionIds(List<int> questionIds) {
-        //     List<Answer> answers = new List<Answer>();
-        //     foreach(int questionId in questionIds)
-        //     {
-        //         answers.AddRange(await _answerRepository.GetAnswersByQuestionId(questionId));
-        //     }
-
-        //     return Ok(answers);
-        // }
     }
 }

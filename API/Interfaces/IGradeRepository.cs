@@ -6,6 +6,7 @@ namespace API.Interfaces
     {
          void AddGrade(Grade grade);
          void AddCategoryGrade(CategoryGrade categoryGrade);
+         void AddTestGrade(int testId, int grade);
          Task<bool> SaveAllAsync();
 
     }

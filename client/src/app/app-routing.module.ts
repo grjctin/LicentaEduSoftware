@@ -11,6 +11,8 @@ import { StudentsComponent } from './students/students.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { TestsComponent } from './tests/tests.component';
 import { CreateTestComponent } from './tests/create-test/create-test.component';
+import { ViewTestComponent } from './tests/view-test/view-test.component';
+import { CorrectTestComponent } from './tests/correct-test/correct-test.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -24,6 +26,9 @@ const routes: Routes = [
       {path: 'questions', component: QuestionsComponent},
       {path: 'tests', component: TestsComponent},
       {path: 'create-test', component: CreateTestComponent},
+      {path: 'view-test',component: ViewTestComponent},
+      {path: 'correct-test',component: CorrectTestComponent}
+
     ]
   }, 
   {path: 'errors', component: TestErrorComponent},

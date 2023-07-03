@@ -1,0 +1,11 @@
+<div class="container">
+    <div *ngIf="testAnswers.length > 0">
+        <div *ngFor="let answer of testAnswers; let i=index" class="mb-3">
+         <label class="form-label">Question {{answer.questionNumber}} answer:</label>
+         <input class="form-control" type="text" [(ngModel)]="testAnswers[i].givenAnswer" name="question{{answer.questionNumber}}">
+        </div>
+        <button class="btn btn-primary" (click)="collectAnswers()">Submit</button>
+     </div>
+</div>
+
+

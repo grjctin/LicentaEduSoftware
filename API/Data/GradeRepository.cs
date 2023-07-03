@@ -1,5 +1,6 @@
 using API.Entities;
 using API.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
@@ -25,6 +26,19 @@ namespace API.Data
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async void AddTestGrade(int testId, int grade)
+        {
+            int studentId = await _context.Tests.Where(t => t.Id == testId).Select(t => t.StudentId).FirstAsync();
+            var gradeToAdd = new Grade{
+                StudentId = studentId,
+                TestId = testId,
+                TestGrade = grade,
+                DateReceived = DateTime.Now
+            };
+            _context.Grades.Add(gradeToAdd);
+            await SaveAllAsync();
         }
     }
 }

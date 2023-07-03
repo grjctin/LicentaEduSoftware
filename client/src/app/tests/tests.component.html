@@ -1,5 +1,26 @@
 <div class="btn-group ms-2">
-    <button class="btn btn-primary" (click)="changeMode('addTest')">View Tests</button> 
-    <button class="btn btn-primary" (click)="changeMode('grades')">Correct Tests</button>
-    <!-- <button class="btn btn-secondary" (click)="changeViewMode('attendance')">Attendance</button> -->
+  <button class="btn btn-primary" (click)="changeMode('view')">View Tests</button>
+  <button class="btn btn-primary" (click)="changeMode('correct')">Correct Tests</button>
+  <!-- <button class="btn btn-secondary" (click)="changeViewMode('attendance')">Attendance</button> -->
+</div>
+
+<div class="form-group d-flex align-items-center mt-2">
+  <label for="nrQuestions" class="me-2 float-start">Select Test Id</label>
+  <input class="form-control float-end w-25" type="number" [(ngModel)]="selectedTestId"
+    (change)="selectedTestChanged()">
+</div>
+
+<div class="mt-2" *ngIf="selectedTestId > 0">
+    <!-- includ componenta si trimit id ca paremtru -->
+  <div *ngIf="mode === 'view'">
+    <app-view-test [testId]="selectedTestId"></app-view-test>
   </div>
+  <div *ngIf="mode ==='correct'">
+    <app-correct-test [testId]="selectedTestId"></app-correct-test>
+  </div>
+
+</div>
+
+<div class="mt-2" *ngIf="selectedTestId <=0">
+  <h2>Test Id doesn't exist</h2>
+</div>

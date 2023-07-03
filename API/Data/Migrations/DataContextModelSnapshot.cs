@@ -267,6 +267,9 @@ namespace API.Data.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("QuestionNumber")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("TestId")
                         .HasColumnType("INTEGER");
 

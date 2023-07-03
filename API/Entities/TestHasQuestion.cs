@@ -8,5 +8,6 @@ namespace API.Entities
         public int QuestionId { get; set; }
         public Question Question { get; set; }
         public string CorrectAnswer { get; set; }
+        public int QuestionNumber { get; set; }
     }
 }

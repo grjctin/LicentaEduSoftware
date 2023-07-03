@@ -104,6 +104,11 @@ namespace API.Data
             return await _context.Students.Where(s => s.SchoolClassId == classId).Select(s => s.Id).ToListAsync();
         }
 
+        public async Task<string> GetStudentNameById(int studentId)
+        {
+            var student = await _context.Students.FindAsync(studentId);
 
+            return(student.FirstName + " " + student.LastName);
+        }
     }
 }
