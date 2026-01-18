@@ -6,7 +6,7 @@ This is a project that will allow teachers:
 - Generate custom tests for each student in a short time using a large question bank.
 - Grade the tests after they have been taken by the students and automatically update their grades for each particular subject.
 At the request of the coordinator teacher I also included a student role that will be able to take the tests online, but this is not the real purpose of the app.
-- Add questions and edit the question bank, it includes pagination, sorting, filtering and even some client side-caching.
+- Add questions and edit the question bank, it includes pagination, sorting, filtering and even some client-side caching.
 - Track absence of their students
 
 
