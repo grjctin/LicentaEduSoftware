@@ -10,7 +10,7 @@ At the request of the coordinator teacher I also included a student role that wi
 - Track absence of their students
 
 
-The app is not 100% finished but the main features are.
+The app is not 100% finished but the main features are. My focus for this app was the 'teacher' side of it, I wanted it to be a tool for them.
 Credentials for using the app are username: profesor, password: profesor. The main features are visible in the classes component on the student grades tab. I didn't really focus on the design of the app, the functionalities were more important at that time.
 
 What I learned
