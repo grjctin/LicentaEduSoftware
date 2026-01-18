@@ -24,6 +24,8 @@
           <label class="me-2 float-start" for="answerType">Answer Type:</label>
           <select class="form-select float-end" name="answerType" formControlName="answerType" style="width: 200px;">
             <option *ngFor="let type of answerTypes" [value]="type.value">{{ type.display }}</option>
+            <!-- <option value="1">Multiple Choice</option>
+            <option value="2">Open Answer</option> -->
           </select>
         </div>
 

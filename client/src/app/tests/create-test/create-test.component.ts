@@ -55,6 +55,8 @@ export class CreateTestComponent implements OnInit{
       answerType: this.questionForm.get('answerType')?.value,
       numberOfQuestions: this.questionForm.get('numberOfQuestions')?.value
     };
+    console.log(this.questionForm.value);
+    console.log(this.getAnswerTypeDisplay(this.questionForm.get('answerType')?.value))
     this.questionConfigs.push(questionConfig);
   }
 
@@ -77,7 +79,7 @@ export class CreateTestComponent implements OnInit{
   }
 
   getAnswerTypeDisplay(value:number) {
-    return this.answerTypes.find(a => a.value = value)?.display;
+    return this.answerTypes.find(a => a.value == value)?.display;
   }
   
 }

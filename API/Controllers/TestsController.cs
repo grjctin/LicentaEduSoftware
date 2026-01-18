@@ -33,7 +33,7 @@ namespace API.Controllers
 
             int grade = await _testRepository.CorrectTest(test);
 
-            //_gradesRepository.AddTestGrade(test.TestId, grade);
+            _gradesRepository.AddTestGrade(test.TestId, grade);
 
             return Ok(grade);
         }

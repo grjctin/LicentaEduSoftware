@@ -50,7 +50,7 @@ namespace API.Data
             };
 
             if(answerType == 2)
-                t.CorrectAnswer = "multipleChoice";
+                t.CorrectAnswer = "openAnswer";
 
             _context.TestHasQuestion.Add(t);
         }
@@ -137,13 +137,20 @@ namespace API.Data
             double numberOfQuestions = test.Answers.Count;
             foreach(var answer in test.Answers)
             {
+
                 string correctAnswer = await _context.TestHasQuestion
                     .Where(t =>
                     t.TestId == test.TestId &&
                     t.QuestionNumber == answer.QuestionNumber)
                     .Select(t => t.CorrectAnswer)
                     .FirstAsync();
-                if(correctAnswer == answer.GivenAnswer)
+
+                if(correctAnswer.Length > 2)
+                {
+                    double points = double.Parse(answer.GivenAnswer);
+                    grade += 10/numberOfQuestions*points;
+                }
+                else if(correctAnswer == answer.GivenAnswer)
                 {
                     grade += 10/numberOfQuestions;
                 }
